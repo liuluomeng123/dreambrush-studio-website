@@ -14,7 +14,11 @@ const Products = () => {
       version: "1.0.0",
       updateDate: "2024-02-11",
       publisher: "梦笔笙花工作室",
-      preview: "/placeholder.svg",
+      previews: [
+        "/placeholder.svg",
+        "/placeholder.svg",
+        "/placeholder.svg"
+      ],
       description: "这是一个示例产品描述。",
       detailLink: "https://example.com"
     },
@@ -40,7 +44,7 @@ const Products = () => {
                 更新日期: {product.updateDate} · 发布者: {product.publisher}
               </p>
               <img
-                src={product.preview}
+                src={product.previews[0]}
                 alt={product.title}
                 className="w-full h-48 object-cover rounded-md mb-4"
               />
