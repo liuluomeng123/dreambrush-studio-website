@@ -23,18 +23,22 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const productFromState = location.state?.product;
   
-  // Fallback to products array if state is not available
   const product = productFromState || 
     products.find(p => p.id === Number(location.pathname.split('/').pop()));
 
   if (!product) {
     return (
-      <div className="container mx-auto px-4 py-8 text-center">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="container mx-auto px-4 py-8 text-center"
+      >
         <h1 className="text-2xl font-bold">产品不存在</h1>
         <Button onClick={() => navigate('/products')} className="mt-4">
           返回产品列表
         </Button>
-      </div>
+      </motion.div>
     );
   }
 
@@ -44,21 +48,22 @@ const ProductDetail = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="container mx-auto px-4 py-8 relative"
+      className="container mx-auto px-4 py-8"
     >
-      <div className="max-w-4xl mx-auto">
-        <Button
-          variant="outline"
-          size="icon"
-          className="fixed top-24 left-8 z-10"
-          onClick={handleBack}
-        >
-          <ArrowLeft className="h-4 w-4" />
-        </Button>
-        
+      <Button
+        variant="outline"
+        size="icon"
+        className="fixed top-20 left-4 z-10"
+        onClick={handleBack}
+      >
+        <ArrowLeft className="h-4 w-4" />
+      </Button>
+
+      <div className="max-w-4xl mx-auto mt-12">
         <Card>
           <CardContent className="p-6">
             <motion.div
@@ -76,7 +81,7 @@ const ProductDetail = () => {
               <div className="mb-6 relative">
                 <Carousel className="w-full">
                   <CarouselContent>
-                    {product.previews.map((preview: string, index: number) => (
+                    {product.previews?.map((preview: string, index: number) => (
                       <CarouselItem key={index}>
                         <Dialog>
                           <DialogTrigger asChild>
@@ -86,14 +91,12 @@ const ProductDetail = () => {
                               className="w-full h-64 object-cover rounded-lg cursor-pointer"
                             />
                           </DialogTrigger>
-                          <DialogContent className="max-w-[90vw] max-h-[90vh] p-0">
-                            <div className="w-full h-full flex items-center justify-center">
-                              <img
-                                src={preview}
-                                alt={`${product.title} - 预览图 ${index + 1}`}
-                                className="max-w-full max-h-[85vh] object-contain"
-                              />
-                            </div>
+                          <DialogContent className="max-w-[90vw] max-h-[90vh]">
+                            <img
+                              src={preview}
+                              alt={`${product.title} - 预览图 ${index + 1}`}
+                              className="w-full h-full object-contain"
+                            />
                           </DialogContent>
                         </Dialog>
                       </CarouselItem>

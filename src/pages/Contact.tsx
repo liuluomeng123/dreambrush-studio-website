@@ -1,12 +1,31 @@
 
 import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">联系我们</h1>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="container mx-auto px-4 py-8"
+    >
+      <motion.h1 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="text-3xl font-bold text-center mb-8"
+      >
+        联系我们
+      </motion.h1>
       <div className="flex flex-col md:flex-row justify-between max-w-4xl mx-auto gap-8">
-        <div className="flex-1">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3 }}
+          className="flex-1"
+        >
           <Card>
             <CardContent className="p-6">
               <h2 className="font-bold text-xl mb-4">联系方式</h2>
@@ -26,8 +45,13 @@ const Contact = () => {
               </div>
             </CardContent>
           </Card>
-        </div>
-        <div className="flex-1">
+        </motion.div>
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4 }}
+          className="flex-1"
+        >
           <Card>
             <CardContent className="p-6">
               <h2 className="font-bold text-xl mb-4">扫码关注</h2>
@@ -43,9 +67,9 @@ const Contact = () => {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
