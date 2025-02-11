@@ -1,10 +1,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const navigate = useNavigate();
 
   const products = [
     {
@@ -16,10 +16,14 @@ const Products = () => {
       publisher: "梦笔笙花工作室",
       preview: "/placeholder.svg",
       description: "这是一个示例产品描述。",
-      detailLink: "#"
+      detailLink: "https://example.com"
     },
     // Add more products as needed
   ];
+
+  const handleViewDetail = (product: any) => {
+    navigate(`/products/${product.id}`, { state: { product } });
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -43,7 +47,7 @@ const Products = () => {
               <p className="text-gray-600 mb-4">{product.description}</p>
               <Button
                 className="w-full"
-                onClick={() => setSelectedProduct(product)}
+                onClick={() => handleViewDetail(product)}
               >
                 查看详情
               </Button>
